@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { env } from '@/core/config/env';
 import { logger } from '@/core/logger';
 import { sessionStorage } from '@/core/storage/mmkv';
+import type { Database } from '@/core/supabase/types';
 
 /**
  * Adapter de storage do Supabase usando MMKV (síncrono, rápido).
@@ -30,7 +31,7 @@ if (!isSupabaseConfigured) {
 const url = env.supabaseUrl ?? 'https://placeholder.supabase.co';
 const anonKey = env.supabaseAnonKey ?? 'placeholder-anon-key';
 
-export const supabase = createClient(url, anonKey, {
+export const supabase = createClient<Database>(url, anonKey, {
   auth: {
     storage: mmkvStorageAdapter,
     autoRefreshToken: true,
