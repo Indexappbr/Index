@@ -46,11 +46,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       predictiveBackGestureEnabled: false,
     },
     web: {
-      output: 'static',
+      // SPA (sem SSR): o app é mobile-first; storage/Supabase carregam só no
+      // cliente. 'static' tentaria prerender no Node e quebra ao tocar storage.
+      output: 'single',
       favicon: './assets/images/favicon.png',
     },
     plugins: [
       'expo-router',
+      'expo-secure-store',
       [
         'expo-splash-screen',
         {
