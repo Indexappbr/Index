@@ -55,6 +55,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       'expo-router',
       'expo-secure-store',
       [
+        // Áudio em background + controles de lock screen. Sem microfone (não gravamos).
+        'expo-audio',
+        { microphonePermission: false, recordAudioAndroid: false },
+      ],
+      [
         'expo-splash-screen',
         {
           backgroundColor: '#208AEF',

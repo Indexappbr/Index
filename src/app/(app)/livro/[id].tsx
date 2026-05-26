@@ -2,14 +2,17 @@ import { FlashList } from '@shopify/flash-list';
 import { Image } from 'expo-image';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useCallback } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useBook, useChapters } from '@/features/library/hooks/use-books';
 import type { Book, Chapter } from '@/features/library/types';
+import { PlayerBar } from '@/features/player/components/PlayerBar';
+import { usePlayerStore } from '@/features/player/store/player-store';
+import { Button } from '@/shared/components/Button';
 import { formatDuration } from '@/shared/utils/format';
 
-function BookHeader({ book }: { book: Book }) {
+function BookHeader({ book, onPlay }: { book: Book; onPlay: () => void }) {
   return (
     <View className="gap-4 pb-4">
       <View className="flex-row gap-4">
@@ -32,6 +35,7 @@ function BookHeader({ book }: { book: Book }) {
           ) : null}
         </View>
       </View>
+      <Button label="▶  Reproduzir" onPress={onPlay} />
       {book.description ? (
         <Text className="text-sm leading-5 text-zinc-600 dark:text-zinc-300">
           {book.description}
@@ -42,16 +46,31 @@ function BookHeader({ book }: { book: Book }) {
   );
 }
 
-function ChapterRow({ chapter }: { chapter: Chapter }) {
-  // TODO(player): tornar pressable e iniciar reprodução (passo 7 — RNTP).
+function ChapterRow({
+  chapter,
+  isCurrent,
+  onPress,
+}: {
+  chapter: Chapter;
+  isCurrent: boolean;
+  onPress: () => void;
+}) {
   return (
-    <View className="flex-row items-center gap-3 border-b border-zinc-100 py-3 dark:border-zinc-800">
+    <Pressable
+      onPress={onPress}
+      className="flex-row items-center gap-3 border-b border-zinc-100 py-3 active:opacity-60 dark:border-zinc-800">
       <Text className="w-6 text-sm text-zinc-400">{chapter.orderIndex + 1}</Text>
-      <Text className="flex-1 text-base text-zinc-800 dark:text-zinc-100" numberOfLines={1}>
+      <Text
+        className={
+          isCurrent
+            ? 'flex-1 text-base font-semibold text-brand'
+            : 'flex-1 text-base text-zinc-800 dark:text-zinc-100'
+        }
+        numberOfLines={1}>
         {chapter.title}
       </Text>
       <Text className="text-xs text-zinc-400">{formatDuration(chapter.lengthSeconds)}</Text>
-    </View>
+    </Pressable>
   );
 }
 
@@ -60,9 +79,27 @@ export default function BookDetailScreen() {
   const { data: book, isLoading } = useBook(id);
   const { data: chapters } = useChapters(book?.id);
 
+  const playChapters = usePlayerStore((s) => s.playChapters);
+  const currentChapter = usePlayerStore((s) => s.currentChapter);
+
+  const handlePlayIndex = useCallback(
+    (index: number) => {
+      if (book && chapters && chapters.length > 0) {
+        void playChapters(book, chapters, index);
+      }
+    },
+    [book, chapters, playChapters],
+  );
+
   const renderItem = useCallback(
-    ({ item }: { item: Chapter }) => <ChapterRow chapter={item} />,
-    [],
+    ({ item, index }: { item: Chapter; index: number }) => (
+      <ChapterRow
+        chapter={item}
+        isCurrent={currentChapter?.id === item.id}
+        onPress={() => handlePlayIndex(index)}
+      />
+    ),
+    [currentChapter?.id, handlePlayIndex],
   );
 
   if (isLoading) {
@@ -87,11 +124,12 @@ export default function BookDetailScreen() {
       <FlashList
         data={chapters ?? []}
         keyExtractor={(c) => c.id}
-        ListHeaderComponent={<BookHeader book={book} />}
+        ListHeaderComponent={<BookHeader book={book} onPlay={() => handlePlayIndex(0)} />}
         renderItem={renderItem}
         contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 24, paddingTop: 12 }}
         ListEmptyComponent={<Text className="text-zinc-500">Nenhum capítulo disponível.</Text>}
       />
+      <PlayerBar />
     </SafeAreaView>
   );
 }
