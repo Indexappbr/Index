@@ -23,6 +23,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ...config,
     name: v.name,
     slug: 'index-mobile',
+    owner: 'index.app',
     version: '1.0.0',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
@@ -76,6 +77,9 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     extra: {
       appEnv: APP_ENV,
+      eas: {
+        projectId: '574f3ee8-6671-4dbc-9826-2ccaa982db26',
+      },
     },
   };
 };
