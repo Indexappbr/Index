@@ -42,8 +42,8 @@ Dia de altíssima produtividade em duas frentes paralelas:
     Do zero ao app com login, catálogo, player de áudio e busca — 6,5 de 16 passos do roadmap, 9 commits no GitHub.
   ],
   block(fill: rgb("#f0fdf4"), inset: 10pt, radius: 5pt)[
-    #text(weight: "bold", fill: rgb("#15803d"))[Bíblia] #linebreak()
-    *523 páginas concluídas* no novo PDF da Bíblia — da página *490 à 1013*.
+    #text(weight: "bold", fill: rgb("#15803d"))[Bíblia + Áudio] #linebreak()
+    *523 páginas concluídas* no novo PDF da Bíblia (490 → 1013) + *plano Business* e *2 vozes profissionais* geradas.
   ],
 )
 
@@ -86,14 +86,20 @@ Construímos do zero o aplicativo nativo, migrando do app web, rumo à App Store
   [Passo 6 — Build no iPhone], [#blocked #h(6pt) Conta Apple Developer com status *pendente* (em processamento pela Apple). O login e a verificação funcionam, mas falta a Apple ativar o "time de desenvolvedor". Tudo preparado para rodar o build assim que ativar.],
 )
 
-= Frente 2 — Bíblia (novo PDF)
+= Frente 2 — Bíblia + Áudio (narração)
 
 #block(fill: rgb("#f0fdf4"), inset: 11pt, radius: 5pt, width: 100%)[
   #text(size: 13pt, weight: "bold", fill: rgb("#15803d"))[523 páginas concluídas] #h(1fr) #ok
   #linebreak()
   #v(0.2em)
-  #text(size: 10pt)[Progresso no *novo PDF da Bíblia*: da página *490* até a *1013*. Avanço significativo na preparação do material.]
+  #text(size: 10pt)[Progresso no *novo PDF da Bíblia*: da página *490* até a *1013*. Avanço significativo na preparação do material para narração.]
 ]
+
+#v(8pt)
+== Infraestrutura de áudio
+
+- *Plano Business adquirido* — habilita a geração de áudio profissional em escala (vozes premium, maior cota, uso comercial). #ok
+- *Vozes profissionais geradas* — *Bento* e *Matias*, prontas para narrar o conteúdo (Bíblia e demais audiolivros). #ok
 
 = Resumo do dia
 
@@ -107,5 +113,7 @@ Construímos do zero o aplicativo nativo, migrando do app web, rumo à App Store
   [Commits enviados ao GitHub (app)], [9],
   [Documentos (PDF) gerados], [4 (com este)],
   [Páginas da Bíblia concluídas], [523 (490 → 1013)],
+  [Plano de áudio (Business)], [Adquirido],
+  [Vozes profissionais geradas], [2 (Bento, Matias)],
   [Espaço em disco liberado], [~40 GB],
 )
