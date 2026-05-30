@@ -11,6 +11,10 @@ export const StorageKeys = {
   BillingCache: 'billing-cache',
   /** IDs dos livros favoritados (cache local, espelha a tabela `favorites`). */
   Favorites: 'favorites',
+  /** Intenção do usuário de receber push (toggle local). */
+  PushEnabled: 'push-enabled',
+  /** Último Expo push token obtido (cache; persistência no backend é futura). */
+  PushToken: 'push-token',
 } as const;
 
 export type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];

@@ -1,6 +1,7 @@
 import { Image } from 'expo-image';
+import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { authService } from '@/features/auth/services/auth.service';
@@ -134,6 +135,20 @@ export default function ContaScreen() {
 
             {/* Assinatura */}
             <SubscriptionCard />
+
+            {/* Ajustes */}
+            <Link href="/notificacoes" asChild>
+              <Pressable className="flex-row items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 active:opacity-70 dark:border-zinc-800 dark:bg-zinc-950">
+                <Text className="text-xl">🔔</Text>
+                <View className="flex-1">
+                  <Text className="text-base font-semibold text-zinc-900 dark:text-white">
+                    Notificações
+                  </Text>
+                  <Text className="text-sm text-zinc-500">Push e preferências</Text>
+                </View>
+                <Text className="text-lg text-zinc-400">›</Text>
+              </Pressable>
+            </Link>
 
             {/* Editar perfil */}
             <Card>

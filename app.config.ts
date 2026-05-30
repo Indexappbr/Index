@@ -61,6 +61,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         { microphonePermission: false, recordAudioAndroid: false },
       ],
       [
+        // Push notifications (APNs/FCM). O envio real no iOS depende da
+        // credencial Apple (aps-environment via EAS) — aqui fica a base do cliente.
+        'expo-notifications',
+        { color: '#208AEF' },
+      ],
+      [
         'expo-splash-screen',
         {
           backgroundColor: '#208AEF',
