@@ -4,7 +4,12 @@ import { formatDuration } from '@/shared/utils/format';
 
 import { usePlayerStore } from '../store/player-store';
 
-export function PlayerBar() {
+/**
+ * Barra de reprodução. Usada tanto na tela do livro quanto no mini-player
+ * global (ver GlobalPlayerBar). `onPressBar`, se passado, torna a área de
+ * texto tocável — o botão de play continua independente.
+ */
+export function PlayerBar({ onPressBar }: { onPressBar?: () => void }) {
   const currentChapter = usePlayerStore((s) => s.currentChapter);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
   const isLoading = usePlayerStore((s) => s.isLoading);
@@ -22,14 +27,17 @@ export function PlayerBar() {
         <View style={{ width: `${pct}%` }} className="h-0.5 bg-brand" />
       </View>
       <View className="flex-row items-center gap-3 px-4 py-3">
-        <View className="flex-1">
+        <Pressable
+          className="flex-1 active:opacity-60"
+          disabled={!onPressBar}
+          onPress={onPressBar}>
           <Text numberOfLines={1} className="text-sm font-medium text-zinc-900 dark:text-white">
             {currentChapter.title}
           </Text>
           <Text className="text-xs text-zinc-400">
             {formatDuration(currentTime)} / {formatDuration(duration)}
           </Text>
-        </View>
+        </Pressable>
         <Pressable
           onPress={togglePlay}
           className="h-11 w-11 items-center justify-center rounded-full bg-brand active:opacity-80">
