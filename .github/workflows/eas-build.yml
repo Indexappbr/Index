@@ -1,0 +1,41 @@
+name: EAS Build (manual)
+
+# Build na nuvem (EAS). Disparo manual para não consumir cota a cada push e
+# porque depende de credenciais (EXPO_TOKEN; iOS exige a conta Apple ativa).
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Plataforma
+        type: choice
+        options: [ios, android, all]
+        default: ios
+      profile:
+        description: Perfil do eas.json
+        type: choice
+        options: [development, preview, production]
+        default: preview
+
+jobs:
+  build:
+    name: EAS Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build
+        run: eas build --non-interactive --platform ${{ inputs.platform }} --profile ${{ inputs.profile }}

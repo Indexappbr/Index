@@ -54,6 +54,7 @@ export default function LoginScreen() {
 
         <View className="gap-4">
           <TextField
+            testID="input-email"
             label="E-mail"
             value={email}
             onChangeText={setEmail}
@@ -63,6 +64,7 @@ export default function LoginScreen() {
             placeholder="voce@email.com"
           />
           <TextField
+            testID="input-password"
             label="Senha"
             value={password}
             onChangeText={setPassword}
@@ -70,6 +72,7 @@ export default function LoginScreen() {
             placeholder="••••••••"
           />
           <Button
+            testID="btn-login"
             label="Entrar"
             onPress={handleLogin}
             loading={loading}

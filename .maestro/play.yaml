@@ -1,0 +1,19 @@
+# Fluxo E2E: login → abrir primeiro livro → reproduzir.
+# Reaproveita o fluxo de login (runFlow) para começar autenticado.
+# Rodar: maestro test .maestro/play.yaml -e EMAIL=... -e PASSWORD=...
+appId: com.indexapp.dev
+env:
+  EMAIL: ${EMAIL}
+  PASSWORD: ${PASSWORD}
+---
+- runFlow: login.yaml
+# Abre o primeiro livro da Home (toca no primeiro BookCard).
+- tapOn:
+    id: 'book-card'
+    index: 0
+    retryTapIfNoChange: true
+- assertVisible: 'Capítulos'
+- tapOn:
+    id: 'btn-play'
+# O mini-player aparece (botão de pausa indica que está tocando).
+- assertVisible: '⏸'

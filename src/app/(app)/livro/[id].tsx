@@ -40,7 +40,7 @@ function BookHeader({ book, onPlay }: { book: Book; onPlay: () => void }) {
       </View>
       <View className="flex-row items-center gap-2">
         <View className="flex-1">
-          <Button label="▶  Reproduzir" onPress={onPlay} />
+          <Button testID="btn-play" label="▶  Reproduzir" onPress={onPlay} />
         </View>
         <FavoriteButton bookId={book.id} />
       </View>

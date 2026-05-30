@@ -1,0 +1,23 @@
+# Fluxo E2E: login por e-mail/senha.
+# Rodar: maestro test .maestro/login.yaml -e EMAIL=... -e PASSWORD=...
+# appId: usar o bundle da build instalada (dev: com.indexapp.dev | prod: com.indexapp).
+appId: com.indexapp.dev
+env:
+  EMAIL: ${EMAIL}
+  PASSWORD: ${PASSWORD}
+---
+- launchApp:
+    clearState: true
+- assertVisible: 'Entrar'
+- tapOn:
+    id: 'input-email'
+- inputText: ${EMAIL}
+- tapOn:
+    id: 'input-password'
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn:
+    id: 'btn-login'
+# Pós-login: caímos na Home (tabs).
+- assertVisible: 'Biblioteca de áudio'
+- assertVisible: 'INDEX'

@@ -10,6 +10,7 @@ export function BookCard({ book }: { book: Book }) {
   return (
     <Link href={`/livro/${book.slug || book.id}`} asChild>
       <Pressable
+        testID="book-card"
         accessibilityRole="button"
         accessibilityLabel={`Abrir ${book.title}`}
         className="mb-4 flex-row gap-3 active:opacity-70">
