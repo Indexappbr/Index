@@ -111,7 +111,12 @@ export default function ContaScreen() {
             {/* Cartão do perfil */}
             <Card>
               <View className="flex-row items-center gap-3.5">
-                <Pressable onPress={handleAvatarPress} className="active:opacity-70">
+                <Pressable
+                  onPress={handleAvatarPress}
+                  accessibilityRole="button"
+                  accessibilityLabel="Alterar foto de perfil"
+                  accessibilityState={{ busy: avatar.uploading }}
+                  className="active:opacity-70">
                   {profile?.avatarUrl ? (
                     <Image
                       source={profile.avatarUrl}
@@ -165,7 +170,10 @@ export default function ContaScreen() {
             <View className="gap-3">
               {SETTINGS_ROWS.map((row) => (
                 <Link key={row.href} href={row.href} asChild>
-                  <Pressable className="flex-row items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 active:opacity-70 dark:border-zinc-800 dark:bg-zinc-950">
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={`${row.title}: ${row.subtitle}`}
+                    className="flex-row items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 active:opacity-70 dark:border-zinc-800 dark:bg-zinc-950">
                     <Text className="text-xl">{row.emoji}</Text>
                     <View className="flex-1">
                       <Text className="text-base font-semibold text-zinc-900 dark:text-white">

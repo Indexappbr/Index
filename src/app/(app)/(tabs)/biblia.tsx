@@ -12,7 +12,10 @@ import type { Book } from '@/features/library/types';
 function Cover({ book }: { book: Book }) {
   return (
     <Link href={`/livro/${book.slug || book.id}`} asChild>
-      <Pressable className="mr-3 w-[104px] active:opacity-70">
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Abrir ${book.title}`}
+        className="mr-3 w-[104px] active:opacity-70">
         <Image
           source={book.coverThumbUrl}
           placeholder={{ blurhash: COVER_BLURHASH }}
@@ -98,6 +101,9 @@ export default function BibliaScreen() {
                 <Pressable
                   key={value}
                   onPress={() => setTestament(value)}
+                  accessibilityRole="tab"
+                  accessibilityState={{ selected: active }}
+                  accessibilityLabel={label}
                   className={`flex-1 items-center rounded-lg py-2 ${
                     active ? 'bg-white dark:bg-zinc-700' : ''
                   }`}>

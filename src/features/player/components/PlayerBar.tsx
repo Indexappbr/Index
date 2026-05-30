@@ -30,7 +30,11 @@ export function PlayerBar({ onPressBar }: { onPressBar?: () => void }) {
         <Pressable
           className="flex-1 active:opacity-60"
           disabled={!onPressBar}
-          onPress={onPressBar}>
+          onPress={onPressBar}
+          accessibilityRole={onPressBar ? 'button' : 'text'}
+          accessibilityLabel={
+            onPressBar ? `Tocando: ${currentChapter.title}. Abrir player` : currentChapter.title
+          }>
           <Text numberOfLines={1} className="text-sm font-medium text-zinc-900 dark:text-white">
             {currentChapter.title}
           </Text>
@@ -40,6 +44,9 @@ export function PlayerBar({ onPressBar }: { onPressBar?: () => void }) {
         </Pressable>
         <Pressable
           onPress={togglePlay}
+          accessibilityRole="button"
+          accessibilityLabel={isPlaying ? 'Pausar' : 'Reproduzir'}
+          accessibilityState={{ busy: isLoading }}
           className="h-11 w-11 items-center justify-center rounded-full bg-brand active:opacity-80">
           <Text className="text-base text-white">{isLoading ? '⏳' : isPlaying ? '⏸' : '▶'}</Text>
         </Pressable>

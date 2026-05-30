@@ -1,5 +1,6 @@
 import * as Clipboard from 'expo-clipboard';
 import { Stack } from 'expo-router';
+import { usePreventScreenCapture } from 'expo-screen-capture';
 import { useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -25,6 +26,9 @@ function Card({ children }: { children: React.ReactNode }) {
 }
 
 export default function SegurancaScreen() {
+  // Bloqueia screenshot/gravação de tela enquanto a chave/QR de 2FA está visível.
+  usePreventScreenCapture();
+
   const { data: profile, isLoading } = useProfile();
   const queryClient = useQueryClient();
 

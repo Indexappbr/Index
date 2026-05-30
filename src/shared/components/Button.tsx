@@ -17,6 +17,9 @@ export function Button({ label, onPress, loading, disabled, variant = 'primary' 
     <Pressable
       onPress={onPress}
       disabled={isDisabled}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ disabled: isDisabled, busy: loading }}
       className={cn(
         'h-12 flex-row items-center justify-center rounded-xl px-4',
         variant === 'primary' ? 'bg-brand' : 'bg-transparent',

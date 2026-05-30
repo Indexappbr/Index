@@ -66,6 +66,8 @@ function ChapterRow({
   return (
     <Pressable
       onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={`Reproduzir capítulo ${chapter.orderIndex + 1}: ${chapter.title}`}
       className="flex-row items-center gap-3 border-b border-zinc-100 py-3 active:opacity-60 dark:border-zinc-800">
       <Text className="w-6 text-sm text-zinc-400">{chapter.orderIndex + 1}</Text>
       <Text
