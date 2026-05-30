@@ -13,6 +13,8 @@ const EnvSchema = z.object({
   supabaseAnonKey: z.string().min(1).optional(),
   appEnv: z.enum(['development', 'preview', 'production']).default('development'),
   sentryDsn: z.string().url().optional(),
+  revenueCatIosKey: z.string().min(1).optional(),
+  revenueCatAndroidKey: z.string().min(1).optional(),
 });
 
 export type Env = z.infer<typeof EnvSchema>;
@@ -22,6 +24,8 @@ const parsed = EnvSchema.safeParse({
   supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY,
   appEnv: process.env.EXPO_PUBLIC_APP_ENV,
   sentryDsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  revenueCatIosKey: process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY,
+  revenueCatAndroidKey: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY,
 });
 
 if (!parsed.success) {

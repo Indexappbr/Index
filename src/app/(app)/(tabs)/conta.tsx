@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -47,6 +47,11 @@ function SubscriptionCard() {
         />
         <Text className="text-base font-semibold text-zinc-900 dark:text-white">{label}</Text>
       </View>
+      {!isLoading && !sub?.subscribed ? (
+        <View className="pt-1">
+          <Button label="Assinar INDEX Premium" onPress={() => router.push('/assinar')} />
+        </View>
+      ) : null}
     </Card>
   );
 }
