@@ -7,6 +7,7 @@ export interface Profile {
   avatarUrl: string | null;
   isFounder: boolean;
   founderNumber: number | null;
+  twofaEnabled: boolean;
 }
 
 export type PlanType = 'monthly' | 'annual';

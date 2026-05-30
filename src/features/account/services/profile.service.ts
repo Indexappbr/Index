@@ -6,7 +6,7 @@ import type { Profile } from '../types';
 export async function fetchProfile(userId: string): Promise<Profile> {
   const { data, error } = await supabase
     .from('users')
-    .select('id, email, full_name, display_name, avatar_url, is_founder, founder_number')
+    .select('id, email, full_name, display_name, avatar_url, is_founder, founder_number, twofa_enabled')
     .eq('id', userId)
     .single();
 
@@ -19,6 +19,7 @@ export async function fetchProfile(userId: string): Promise<Profile> {
     avatarUrl: data.avatar_url,
     isFounder: data.is_founder,
     founderNumber: data.founder_number,
+    twofaEnabled: data.twofa_enabled ?? false,
   };
 }
 

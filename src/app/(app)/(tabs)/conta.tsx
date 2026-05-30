@@ -5,10 +5,16 @@ import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'rea
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { authService } from '@/features/auth/services/auth.service';
+import { useAvatarUpload } from '@/features/account/hooks/use-avatar-upload';
 import { useProfile, useUpdateProfile } from '@/features/account/hooks/use-profile';
 import { useSubscription } from '@/features/account/hooks/use-subscription';
 import { Button } from '@/shared/components/Button';
 import { TextField } from '@/shared/components/TextField';
+
+const SETTINGS_ROWS = [
+  { href: '/notificacoes', emoji: '🔔', title: 'Notificações', subtitle: 'Push e preferências' },
+  { href: '/seguranca', emoji: '🔒', title: 'Segurança', subtitle: 'Verificação em duas etapas' },
+] as const;
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
@@ -47,6 +53,11 @@ function SubscriptionCard() {
 export default function ContaScreen() {
   const { data: profile, isLoading } = useProfile();
   const updateProfile = useUpdateProfile();
+  const avatar = useAvatarUpload();
+
+  const handleAvatarPress = () => {
+    avatar.pick().catch((e) => Alert.alert('Erro no upload', (e as Error).message));
+  };
 
   const [fullName, setFullName] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -100,17 +111,31 @@ export default function ContaScreen() {
             {/* Cartão do perfil */}
             <Card>
               <View className="flex-row items-center gap-3.5">
-                {profile?.avatarUrl ? (
-                  <Image
-                    source={profile.avatarUrl}
-                    style={{ width: 62, height: 62, borderRadius: 31, backgroundColor: '#e4e4e7' }}
-                    contentFit="cover"
-                  />
-                ) : (
-                  <View className="h-[62px] w-[62px] items-center justify-center rounded-full bg-brand/15">
-                    <Text className="text-2xl font-bold text-brand">{initials}</Text>
+                <Pressable onPress={handleAvatarPress} className="active:opacity-70">
+                  {profile?.avatarUrl ? (
+                    <Image
+                      source={profile.avatarUrl}
+                      style={{
+                        width: 62,
+                        height: 62,
+                        borderRadius: 31,
+                        backgroundColor: '#e4e4e7',
+                      }}
+                      contentFit="cover"
+                    />
+                  ) : (
+                    <View className="h-[62px] w-[62px] items-center justify-center rounded-full bg-brand/15">
+                      <Text className="text-2xl font-bold text-brand">{initials}</Text>
+                    </View>
+                  )}
+                  <View className="absolute bottom-0 right-0 h-5 w-5 items-center justify-center rounded-full bg-brand">
+                    {avatar.uploading ? (
+                      <ActivityIndicator size="small" color="#fff" />
+                    ) : (
+                      <Text className="text-[10px] text-white">✎</Text>
+                    )}
                   </View>
-                )}
+                </Pressable>
                 <View className="flex-1">
                   <Text
                     className="text-lg font-bold text-zinc-900 dark:text-white"
@@ -137,18 +162,22 @@ export default function ContaScreen() {
             <SubscriptionCard />
 
             {/* Ajustes */}
-            <Link href="/notificacoes" asChild>
-              <Pressable className="flex-row items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 active:opacity-70 dark:border-zinc-800 dark:bg-zinc-950">
-                <Text className="text-xl">🔔</Text>
-                <View className="flex-1">
-                  <Text className="text-base font-semibold text-zinc-900 dark:text-white">
-                    Notificações
-                  </Text>
-                  <Text className="text-sm text-zinc-500">Push e preferências</Text>
-                </View>
-                <Text className="text-lg text-zinc-400">›</Text>
-              </Pressable>
-            </Link>
+            <View className="gap-3">
+              {SETTINGS_ROWS.map((row) => (
+                <Link key={row.href} href={row.href} asChild>
+                  <Pressable className="flex-row items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 active:opacity-70 dark:border-zinc-800 dark:bg-zinc-950">
+                    <Text className="text-xl">{row.emoji}</Text>
+                    <View className="flex-1">
+                      <Text className="text-base font-semibold text-zinc-900 dark:text-white">
+                        {row.title}
+                      </Text>
+                      <Text className="text-sm text-zinc-500">{row.subtitle}</Text>
+                    </View>
+                    <Text className="text-lg text-zinc-400">›</Text>
+                  </Pressable>
+                </Link>
+              ))}
+            </View>
 
             {/* Editar perfil */}
             <Card>

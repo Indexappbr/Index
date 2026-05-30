@@ -67,6 +67,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         { color: '#208AEF' },
       ],
       [
+        // Seleção de foto de perfil. Declara a permissão de galeria no iOS.
+        'expo-image-picker',
+        {
+          photosPermission:
+            'O INDEX precisa acessar suas fotos para você definir uma foto de perfil.',
+        },
+      ],
+      [
         'expo-splash-screen',
         {
           backgroundColor: '#208AEF',
