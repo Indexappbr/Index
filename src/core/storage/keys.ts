@@ -9,6 +9,8 @@ export const StorageKeys = {
   Roles: 'roles',
   ThemePreference: 'theme-preference',
   BillingCache: 'billing-cache',
+  /** IDs dos livros favoritados (cache local, espelha a tabela `favorites`). */
+  Favorites: 'favorites',
 } as const;
 
 export type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];

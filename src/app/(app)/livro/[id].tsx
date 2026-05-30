@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { FavoriteButton } from '@/features/favorites/components/FavoriteButton';
 import { useBook, useChapters } from '@/features/library/hooks/use-books';
 import type { Book, Chapter } from '@/features/library/types';
 import { PlayerBar } from '@/features/player/components/PlayerBar';
@@ -35,7 +36,12 @@ function BookHeader({ book, onPlay }: { book: Book; onPlay: () => void }) {
           ) : null}
         </View>
       </View>
-      <Button label="▶  Reproduzir" onPress={onPlay} />
+      <View className="flex-row items-center gap-2">
+        <View className="flex-1">
+          <Button label="▶  Reproduzir" onPress={onPlay} />
+        </View>
+        <FavoriteButton bookId={book.id} />
+      </View>
       {book.description ? (
         <Text className="text-sm leading-5 text-zinc-600 dark:text-zinc-300">
           {book.description}

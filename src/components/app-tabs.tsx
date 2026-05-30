@@ -27,6 +27,11 @@ export default function AppTabs() {
           renderingMode="template"
         />
       </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="estante">
+        <NativeTabs.Trigger.Label>Estante</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf={{ default: 'heart', selected: 'heart.fill' }} />
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }
