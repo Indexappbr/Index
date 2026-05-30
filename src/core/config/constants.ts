@@ -18,3 +18,12 @@ export const BILLING_CACHE_TTL_MS = 60 * 1000;
  * livro; quando fornecer, trocar pelo do próprio book.
  */
 export const COVER_BLURHASH = 'LGF5]+Yk^6#M@-5c,1J5@[or[Q6.';
+
+/** Domínio do app web (onde vivem as páginas legais). */
+export const WEB_BASE_URL = 'https://login.indexapp.com.br';
+
+/** Links legais exibidos no app (exigência da App Store). */
+export const LEGAL_LINKS = {
+  privacy: `${WEB_BASE_URL}/privacidade`,
+  terms: `${WEB_BASE_URL}/termos`,
+} as const;

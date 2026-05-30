@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import { useFavoritesSync } from '@/features/favorites/hooks/use-favorites-sync';
 import { useNotificationRouter } from '@/features/notifications/hooks/use-notification-router';
 import { configureNotificationHandler } from '@/features/notifications/service';
+import { useJailbreakWarning } from '@/features/security/hooks/use-jailbreak-warning';
 
 // Configura a exibição de notificações em primeiro plano (uma vez, no load).
 configureNotificationHandler();
@@ -16,6 +17,8 @@ export default function AppLayout() {
   useFavoritesSync();
   // Toque numa notificação navega pro destino do payload (ex: um livro).
   useNotificationRouter();
+  // Avisa (uma vez) se o aparelho aparentar jailbreak/root.
+  useJailbreakWarning();
 
   return (
     <Stack>

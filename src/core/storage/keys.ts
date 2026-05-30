@@ -15,6 +15,8 @@ export const StorageKeys = {
   PushEnabled: 'push-enabled',
   /** Último Expo push token obtido (cache; persistência no backend é futura). */
   PushToken: 'push-token',
+  /** Marca que o aviso de device comprometido (jailbreak/root) já foi exibido. */
+  JailbreakWarned: 'jailbreak-warned',
 } as const;
 
 export type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];

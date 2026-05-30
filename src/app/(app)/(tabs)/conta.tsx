@@ -1,9 +1,10 @@
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { LEGAL_LINKS } from '@/core/config/constants';
 import { authService } from '@/features/auth/services/auth.service';
 import { useAvatarUpload } from '@/features/account/hooks/use-avatar-upload';
 import { useProfile, useUpdateProfile } from '@/features/account/hooks/use-profile';
@@ -218,6 +219,23 @@ export default function ContaScreen() {
                 />
               </View>
             </Card>
+
+            {/* Legal */}
+            <View className="flex-row justify-center gap-4 pt-1">
+              <Text
+                accessibilityRole="link"
+                onPress={() => void Linking.openURL(LEGAL_LINKS.terms)}
+                className="text-sm text-zinc-500 underline">
+                Termos de Uso
+              </Text>
+              <Text className="text-sm text-zinc-300">·</Text>
+              <Text
+                accessibilityRole="link"
+                onPress={() => void Linking.openURL(LEGAL_LINKS.privacy)}
+                className="text-sm text-zinc-500 underline">
+                Privacidade
+              </Text>
+            </View>
 
             {/* Sair */}
             <Button label="Sair da conta" variant="ghost" onPress={handleLogout} />
