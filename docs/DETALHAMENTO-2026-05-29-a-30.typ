@@ -1,11 +1,11 @@
-#set document(title: "INDEX Mobile — Detalhamento do Dia (30/05/2026)", author: "Equipe INDEX")
+#set document(title: "INDEX Mobile — Detalhamento (29–30/05/2026)", author: "Equipe INDEX")
 #set page(
   paper: "a4",
   margin: (x: 2cm, y: 2cm),
   numbering: "1",
   footer: context [
     #set text(size: 8pt, fill: rgb("#888"))
-    INDEX Mobile · Detalhamento do Dia · 30/05/2026
+    INDEX Mobile · Detalhamento · 29–30/05/2026
     #h(1fr)
     #counter(page).display()
   ],
@@ -28,24 +28,24 @@
 #align(center)[
   #text(size: 22pt, fill: brand, weight: "bold")[INDEX Mobile]
   #linebreak()
-  #text(size: 14pt)[Detalhamento do Dia — O que foi construído]
+  #text(size: 14pt)[Detalhamento — O que foi construído]
   #linebreak()
   #v(0.3em)
-  #text(size: 10pt, fill: rgb("#666"))[App nativo iOS/Android · Migração do app web · 30 de maio de 2026]
+  #text(size: 10pt, fill: rgb("#666"))[App nativo iOS/Android · Migração do app web · 29 e 30 de maio de 2026]
 ]
 
 #line(length: 100%, stroke: 0.5pt + rgb("#ddd"))
 
 = Sumário executivo
 
-Em uma única frente de trabalho, o app *mobile nativo da INDEX* (audiolivros católicos, React Native) avançou da metade do roadmap para um estado *pronto para publicação* — faltando apenas o que depende da ativação da conta Apple Developer.
+Ao longo de *29 e 30 de maio*, o app *mobile nativo da INDEX* (audiolivros católicos, React Native) avançou da metade do roadmap para um estado *pronto para publicação* — faltando apenas o que depende da ativação da conta Apple Developer.
 
 Foram concluídos: (1) *toda a Fase 2* do plano de migração (paridade de funcionalidades com o app web); (2) *praticamente todo o checklist de produção* de performance, segurança, compliance e qualidade; (3) *infraestrutura de CI/CD, testes e observabilidade*; e (4) a *estrutura de pagamentos no app (IAP)* pronta para ser ativada.
 
 Tudo foi validado a cada passo por *4 verificações automáticas* — checagem de tipos, lint, testes unitários e empacotamento — e versionado no GitHub (12 commits). O app *ainda não foi testado em aparelho físico* (o ambiente é Windows, sem simulador iOS), o que ocorrerá no primeiro build de dispositivo.
 
 #block(fill: rgb("#f0f9ff"), inset: 10pt, radius: 5pt, width: 100%)[
-  *Resultado do dia:* Fase 2 completa · 14 itens do checklist de produção fechados · CI/CD ativo · 22 testes automatizados · billing pronto para plugar. O único impedimento é externo: a conta *Apple Developer* segue em processamento.
+  *Resultado do período:* Fase 2 completa · 14 itens do checklist de produção fechados · CI/CD ativo · 22 testes automatizados · billing pronto para plugar. O único impedimento é externo: a conta *Apple Developer* segue em processamento.
 ]
 
 = 1. Funcionalidades novas (Fase 2 — paridade com o web)
@@ -178,10 +178,10 @@ O único impedimento é externo: a *conta Apple Developer está em processamento
 
 = 7. Como o trabalho foi validado e registrado
 
-Cada mudança passou por *4 verificações automáticas* antes de ser registrada: checagem de tipos (0 erros), lint (0 erros), 22 testes unitários e empacotamento web. Foram *12 commits* enviados ao GitHub (`github.com/Indexappbr/Index`, branch `main`), do favoritos ao billing.
+Cada mudança passou por *4 verificações automáticas* antes de ser registrada: checagem de tipos (0 erros), lint (0 erros), 22 testes unitários e empacotamento web. Ao longo de 29 e 30 de maio foram *12 commits* enviados ao GitHub (`github.com/Indexappbr/Index`, branch `main`), do favoritos ao billing.
 
 #text(size: 9pt, fill: rgb("#666"))[Projeto: `C:\dev\index-mobile` · Backend Supabase compartilhado com o app web · Conta Expo/EAS `ferramentas@indexappbr.com`.]
 
 #v(0.6em)
 #line(length: 100%, stroke: 0.5pt + rgb("#ddd"))
-#align(center)[#text(size: 9pt, fill: rgb("#888"))[Documento gerado em 30/05/2026 · INDEX Mobile · Migração web → nativo rumo à App Store]]
+#align(center)[#text(size: 9pt, fill: rgb("#888"))[Período: 29–30 de maio de 2026 · INDEX Mobile · Migração web → nativo rumo à App Store]]
