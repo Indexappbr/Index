@@ -2,6 +2,8 @@ import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
+import { COVER_BLURHASH } from '@/core/config/constants';
+
 import type { Book } from '../types';
 
 export function BookCard({ book }: { book: Book }) {
@@ -10,6 +12,7 @@ export function BookCard({ book }: { book: Book }) {
       <Pressable className="mb-4 flex-row gap-3 active:opacity-70">
         <Image
           source={book.coverThumbUrl}
+          placeholder={{ blurhash: COVER_BLURHASH }}
           style={{ width: 64, height: 96, borderRadius: 8, backgroundColor: '#e4e4e7' }}
           contentFit="cover"
           transition={150}

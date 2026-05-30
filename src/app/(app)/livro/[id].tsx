@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { COVER_BLURHASH } from '@/core/config/constants';
 import { FavoriteButton } from '@/features/favorites/components/FavoriteButton';
 import { useBook, useChapters } from '@/features/library/hooks/use-books';
 import type { Book, Chapter } from '@/features/library/types';
@@ -19,6 +20,7 @@ function BookHeader({ book, onPlay }: { book: Book; onPlay: () => void }) {
       <View className="flex-row gap-4">
         <Image
           source={book.coverUrl}
+          placeholder={{ blurhash: COVER_BLURHASH }}
           style={{ width: 110, height: 165, borderRadius: 12, backgroundColor: '#e4e4e7' }}
           contentFit="cover"
           transition={150}

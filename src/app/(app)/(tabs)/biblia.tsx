@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { COVER_BLURHASH } from '@/core/config/constants';
 import { useBiblia } from '@/features/biblia/hooks/use-biblia';
 import type { BibliaSection } from '@/features/biblia/types';
 import type { Book } from '@/features/library/types';
@@ -14,6 +15,7 @@ function Cover({ book }: { book: Book }) {
       <Pressable className="mr-3 w-[104px] active:opacity-70">
         <Image
           source={book.coverThumbUrl}
+          placeholder={{ blurhash: COVER_BLURHASH }}
           style={{ width: 104, height: 156, borderRadius: 8, backgroundColor: '#e4e4e7' }}
           contentFit="cover"
           transition={150}

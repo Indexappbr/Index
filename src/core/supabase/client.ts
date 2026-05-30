@@ -2,20 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 
 import { env } from '@/core/config/env';
 import { logger } from '@/core/logger';
-import { sessionStorage } from '@/core/storage/mmkv';
+import { secureSessionStore } from '@/core/storage/secure-session-store';
 import type { Database } from '@/core/supabase/types';
-
-/**
- * Adapter de storage do Supabase usando MMKV (síncrono, rápido).
- * Substitui o localStorage usado no app web — que não existe em RN.
- */
-const mmkvStorageAdapter = {
-  getItem: (key: string) => sessionStorage.getString(key) ?? null,
-  setItem: (key: string, value: string) => sessionStorage.set(key, value),
-  removeItem: (key: string) => {
-    sessionStorage.remove(key);
-  },
-};
 
 /** True quando as variáveis de ambiente do Supabase estão presentes. */
 export const isSupabaseConfigured = Boolean(env.supabaseUrl && env.supabaseAnonKey);
@@ -33,7 +21,9 @@ const anonKey = env.supabaseAnonKey ?? 'placeholder-anon-key';
 
 export const supabase = createClient<Database>(url, anonKey, {
   auth: {
-    storage: mmkvStorageAdapter,
+    // Sessão cifrada at-rest: chave AES no Keychain/Keystore, texto cifrado na
+    // MMKV (ver secure-session-store). Tokens nunca ficam em texto plano.
+    storage: secureSessionStore,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false, // RN não tem URL bar
