@@ -35,6 +35,37 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       supportsTablet: true,
       // Background audio é requisito do player (RNTP) — habilitar quando
       // o player entrar (fase Player): infoPlist.UIBackgroundModes = ['audio']
+      //
+      // Privacy Manifest (obrigatório desde mai/2024). Declara as "required
+      // reason APIs" usadas pelas libs (MMKV/UserDefaults, file-system, etc.).
+      // Não rastreamos entre apps (NSPrivacyTracking: false → sem ATT).
+      privacyManifests: {
+        NSPrivacyTracking: false,
+        NSPrivacyTrackingDomains: [],
+        NSPrivacyCollectedDataTypes: [],
+        NSPrivacyAccessedAPITypes: [
+          {
+            // UserDefaults (MMKV/AsyncStorage/Expo) — uso só dentro do app.
+            NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryUserDefaults',
+            NSPrivacyAccessedAPITypeReasons: ['CA92.1'],
+          },
+          {
+            // Timestamp de arquivos (expo-file-system / expo-image).
+            NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryFileTimestamp',
+            NSPrivacyAccessedAPITypeReasons: ['C617.1'],
+          },
+          {
+            // Tempo desde o boot (medição de tempo decorrido).
+            NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategorySystemBootTime',
+            NSPrivacyAccessedAPITypeReasons: ['35F9.1'],
+          },
+          {
+            // Espaço livre em disco (file-system / downloads futuros).
+            NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryDiskSpace',
+            NSPrivacyAccessedAPITypeReasons: ['E174.1'],
+          },
+        ],
+      },
     },
     android: {
       package: v.bundleId,

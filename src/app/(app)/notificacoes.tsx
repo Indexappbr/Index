@@ -13,12 +13,11 @@ import {
 
 export default function NotificacoesScreen() {
   const [status, setStatus] = useState<PermissionStatus>('undetermined');
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(() => isPushEnabledLocally());
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     void getPermissionStatus().then(setStatus);
-    setEnabled(isPushEnabledLocally());
   }, []);
 
   const handleToggle = async (value: boolean) => {
