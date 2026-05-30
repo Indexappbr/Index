@@ -32,6 +32,11 @@ export default function AppTabs() {
         <NativeTabs.Trigger.Label>Estante</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'heart', selected: 'heart.fill' }} />
       </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="conta">
+        <NativeTabs.Trigger.Label>Conta</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf={{ default: 'person', selected: 'person.fill' }} />
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }
