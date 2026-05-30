@@ -1,8 +1,22 @@
 /**
- * Logger central. Em dev imprime no console; em produção os métodos warn/error
- * são os pontos de integração com Sentry (a adicionar na fase de observabilidade).
+ * Logger central. Em dev imprime no console; warn/error também são repassados
+ * a um "reporter" opcional (ligado ao Sentry no bootstrap). O logger NÃO importa
+ * o SDK do Sentry — a observabilidade se pluga via setLogReporter, mantendo o
+ * logger leve e sem dependências nativas (testes não carregam o Sentry).
  */
 const isDev = typeof __DEV__ !== 'undefined' ? __DEV__ : false;
+
+export interface LogReporter {
+  warn?: (args: unknown[]) => void;
+  error?: (args: unknown[]) => void;
+}
+
+let reporter: LogReporter | null = null;
+
+/** Liga um destino externo (ex: Sentry) para warn/error. */
+export function setLogReporter(next: LogReporter | null) {
+  reporter = next;
+}
 
 export const logger = {
   debug: (...args: unknown[]) => {
@@ -13,10 +27,10 @@ export const logger = {
   },
   warn: (...args: unknown[]) => {
     console.warn('[warn]', ...args);
-    // TODO(obs): Sentry.captureMessage(level: 'warning')
+    reporter?.warn?.(args);
   },
   error: (...args: unknown[]) => {
     console.error('[error]', ...args);
-    // TODO(obs): Sentry.captureException
+    reporter?.error?.(args);
   },
 };

@@ -2,8 +2,12 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
+import { initSentry, wrapWithSentry } from '@/core/observability/sentry';
 import { AuthProvider, useAuth } from '@/providers/AuthProvider';
 import { QueryProvider } from '@/providers/QueryProvider';
+
+// Observabilidade: inicializa cedo (no-op se não houver DSN configurado).
+initSentry();
 
 /**
  * Navegação raiz com guarda de sessão. `Stack.Protected` (Expo Router v6)
@@ -28,7 +32,7 @@ function RootNavigator() {
   );
 }
 
-export default function RootLayout() {
+function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
@@ -42,3 +46,5 @@ export default function RootLayout() {
     </QueryProvider>
   );
 }
+
+export default wrapWithSentry(RootLayout);

@@ -55,6 +55,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     plugins: [
       'expo-router',
       'expo-secure-store',
+      // Observabilidade: source maps + symbolication no build (DSN via env em runtime).
+      '@sentry/react-native/expo',
       [
         // Áudio em background + controles de lock screen. Sem microfone (não gravamos).
         'expo-audio',
